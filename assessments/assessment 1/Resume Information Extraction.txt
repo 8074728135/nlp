@@ -1,0 +1,43 @@
+import re
+
+resume = """
+Name: Rahul Kumar
+Email: rahul@gmail.com
+Mobile: 9876543210
+Skills: Python, Java, SQL, Machine Learning
+Experience: 3 years
+"""
+
+# Extract name
+name = re.search(r"Name:\s*(.*)", resume).group(1)
+
+# Extract email
+email = re.search(r"[\w.-]+@[\w.-]+\.\w+", resume).group()
+
+# Extract mobile number
+mobile = re.search(r"\b\d{10}\b", resume).group()
+
+# Extract skills
+skills = ["Python", "Java", "SQL", "Machine Learning", "NLP"]
+found_skills = []
+
+for skill in skills:
+    if re.search(skill, resume, re.I):
+        found_skills.append(skill)
+
+# Extract experience
+experience = int(re.search(r"(\d+)\s*years?", resume).group(1))
+
+# Display profile
+print("----- Candidate Profile -----")
+print("Name:", name)
+print("Email:", email)
+print("Mobile:", mobile)
+print("Skills:", ", ".join(found_skills))
+print("Experience:", experience, "years")
+
+# Eligibility
+if experience >= 2 and "Python" in found_skills:
+    print("Status: Eligible")
+else:
+    print("Status: Not Eligible")

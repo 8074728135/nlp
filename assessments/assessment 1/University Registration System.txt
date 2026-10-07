@@ -1,0 +1,28 @@
+import re
+
+reg = input("Enter Register Number: ")
+email = input("Enter Email: ")
+course = input("Enter Course Code: ")
+semester = input("Enter Semester: ")
+mobile = input("Enter Mobile Number: ")
+
+# Validation
+reg_valid = re.fullmatch(r"\d{2}[A-Z]{3}\d{3}", reg)
+email_valid = re.fullmatch(r"[\w.-]+@saveetha\.com", email)
+course_valid = re.fullmatch(r"[A-Z]{3}\d{3}", course)
+semester_valid = re.fullmatch(r"Semester [1-8]", semester, re.I)
+mobile_valid = re.fullmatch(r"[6-9]\d{9}", mobile)
+
+print("\n----- Validation Report -----")
+
+print("Register Number:", "Valid" if reg_valid else "Invalid")
+print("Email:", "Valid" if email_valid else "Invalid")
+print("Course Code:", "Valid" if course_valid else "Invalid")
+print("Semester:", "Valid" if semester_valid else "Invalid")
+print("Mobile Number:", "Valid" if mobile_valid else "Invalid")
+
+# Final status
+if reg_valid and email_valid and course_valid and semester_valid and mobile_valid:
+    print("\nRegistration Status: SUCCESSFUL")
+else:
+    print("\nRegistration Status: FAILED")

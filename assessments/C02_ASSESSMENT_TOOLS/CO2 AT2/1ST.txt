@@ -1,0 +1,29 @@
+# Q1: Rule-based morphological processing for search-engine indexing
+
+ROOTS = {"analyze"}
+
+RULES = [
+    ("ytical", "yze", "-ic + -al", "Derivational", "Verb -> Adjective"),
+    ("ysis", "yze", "-sis", "Derivational", "Verb -> Noun"),
+    ("ing", "e", "-ing", "Inflectional", "Verb -> Verb (present participle)"),
+]
+
+def analyse(word):
+    if word in ROOTS:
+        return word, "-", "Root (base form)", "-"
+    for suffix, restore, affix, kind, change in RULES:
+        if word.endswith(suffix):
+            root = word[:-len(suffix)] + restore
+            if root in ROOTS:
+                return root, affix, kind, change
+    return word, "-", "Unknown", "-"
+
+for w in ["analyzing", "analysis", "analytical"]:
+    root, affix, kind, change = analyse(w)
+    print(f"Original word       : {w}")
+    print(f"Extracted root      : {root}")
+    print(f"Affix(es)           : {affix}")
+    print(f"Transformation type : {kind}")
+    print(f"Class change        : {change}")
+    print(f"Normalized output   : {root}")
+    print("-" * 45)S
